@@ -1,0 +1,1941 @@
+<html><head>
+  <title>Commit-Me</title>
+  <link rel="stylesheet" type="text/css" href="./main_style.css">    
+<style>
+body {
+  font-family: Rubik !important;
+}
+
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Rubik" rel="stylesheet">
+
+<style>
+
+.single_type_box {
+  display: inline-block;
+  text-decoration: none !important;
+  flex:1; 
+  margin:10px; 
+  max-width: 280px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.single_type_box_image_link_container {
+  width: 280px;
+  height: 280px;  
+  /*border-radius: 4px;*/
+  background: linear-gradient(#e66465, #9198e5);
+  background: linear-gradient( #00b140, lightgreen, #e66465);
+  background: linear-gradient(#B10071, #00b140);
+  padding: 5px;
+  display: inline-block;
+  height: 100%;
+  position: relative;
+}
+
+.single_type_box_image_link_container:hover {
+  /*background: linear-gradient(#64e675, #2d6d0b);*/
+}
+.single_type_box_image {
+  width: 280px;
+  height: 280px;
+  object-fit: cover;
+  background: white;
+}
+
+@media(max-width: 700px) {
+  .single_type_box_image {
+/*    width: 150px !important; */
+  }
+}
+
+.cast_box_user_img {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  border-radius: 50%;
+  position: relative;
+  top: 5px;
+  left: 4px;
+  border:1px solid #cabfbf;
+}
+.cast_box_text {
+  flex: 7;
+  text-align: left;
+  margin-left: 22px;
+  font-size: 16px;
+  position: relative;
+}
+.cast_box_text_title {
+  display: block;
+  overflow: hidden;
+  height: 85px;
+}
+.cast_box_title {
+  position: relative;
+  top: 2px;
+  /*padding: 0 6px 0 6px;*/
+  color: black;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 20px;
+  margin-top: 1px;
+  height: 45px;
+}
+.cast_box_desc {
+  /*display: none;*/
+  max-height: 120px;
+  overflow: scroll;
+  position: relative;
+  top: 2px;
+  color: black;
+  margin-bottom: 10px;
+  white-space: pre-wrap;
+}
+.cast_box_text_and_img a:hover {
+  text-decoration: none !important;
+}
+.cast_box_user a {
+  color: grey;
+}
+.cast_box_user a:hover {
+  color: black;
+}
+.cast_box_user.check {
+  position: relative;
+  top: 1px;
+  left: 2px;
+  font-size: 75%;
+}
+.cast_img_and_logistics {
+  position: relative;
+}
+.cast_logistics_overlay {
+  background-color: black;
+  color: white;
+  position: absolute;
+  bottom: 5px;
+  left: 0;
+  padding: 5px 10px;
+  font-size: 14px;
+  opacity: 0.8;
+  margin-right: 5px;
+  margin-left: 5px;
+}
+.cast_box .your_time, .cast_box .origTime {
+  display: none;
+}
+.cast_box .cast_time_recurring {
+  display: inline-block;
+}
+
+.cast_box .overlay_donation_target {
+  font-size: 80%;
+}
+</style><style>
+
+/* Tooltip container */
+.tooltip {
+  position: relative;
+  border-bottom: 1px dotted black;
+  width: 100px;
+}
+
+/* Tooltip text */
+.tooltip .tooltip_text {
+  visibility: hidden;
+  width: 320px;
+  bottom: 100%;
+  left: 0%;
+  margin-left: 0px;
+  margin-bottom: 10px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  padding: 12px;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 1;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltip_text {
+  visibility: visible;
+}
+
+</style>
+<style>
+/*https://codepen.io/nxworld/pen/oLdoWb*/
+/* common */
+.ribbon {
+  width: 150px;
+  height: 150px;
+  overflow: hidden;
+  position: absolute;
+}
+.ribbon::before,
+.ribbon::after {
+  position: absolute;
+  z-index: -1;
+  content: '';
+  display: block;
+  border: 5px solid #2980b9;
+}
+.ribbon span {
+  position: absolute;
+  display: block;
+  width: 225px;
+  padding: 15px 0;
+  background-color: #3498db;
+  box-shadow: 0 5px 10px rgba(0,0,0,.1);
+  color: #fff;
+  font: 700 15px/1 'Lato', sans-serif;
+  text-shadow: 0 1px 1px rgba(0,0,0,.2);
+  text-transform: uppercase;
+  text-align: center;
+}
+
+/* top left*/
+.ribbon-top-left {
+  top: -10px;
+  left: -10px;
+}
+.ribbon-top-left::before,
+.ribbon-top-left::after {
+  border-top-color: transparent;
+  border-left-color: transparent;
+}
+.ribbon-top-left::before {
+  top: 0;
+  right: 0;
+}
+.ribbon-top-left::after {
+  bottom: 0;
+  left: 0;
+}
+.ribbon-top-left span {
+  right: -25px;
+  top: 30px;
+  transform: rotate(-45deg);
+}
+
+/* top right*/
+.ribbon-top-right {
+  top: -10px;
+  right: -10px;
+}
+.ribbon-top-right::before,
+.ribbon-top-right::after {
+  border-top-color: transparent;
+  border-right-color: transparent;
+}
+.ribbon-top-right::before {
+  top: 0;
+  left: 0;
+}
+.ribbon-top-right::after {
+  bottom: 0;
+  right: 0;
+}
+.ribbon-top-right span {
+  left: -25px;
+  top: 30px;
+  transform: rotate(45deg);
+}
+</style><style>
+.checkmark {
+    display:inline-block;
+    width: 22px;
+    height:22px;
+    -ms-transform: rotate(45deg); /* IE 9 */
+    -webkit-transform: rotate(45deg); /* Chrome, Safari, Opera */
+    transform: rotate(45deg);
+}
+
+.checkmark_circle {
+    position: absolute;
+    width:22px;
+    height:22px;
+    background-color: green;
+    border-radius:11px;
+    left:0;
+    top:0;
+}
+
+.checkmark_stem {
+    position: absolute;
+    width:3px;
+    height:9px;
+    background-color:#fff;
+    left:11px;
+    top:6px;
+}
+
+.checkmark_kick {
+    position: absolute;
+    width:3px;
+    height:3px;
+    background-color:#fff;
+    left:8px;
+    top:12px;
+}
+</style>
+  
+      
+  
+
+  <script async="" src="https://www.google-analytics.com/analytics.js"></script><script src="/js/lib/jquery-2.2.1.min.js"></script>
+  <script src="/js/lib/bootstrap3.js"></script>
+  <script src="/js/lib/material.min.js"></script>
+  <script src="/js/lib/ripples.min.js"></script>
+  <script src="/js/lib.js"></script>
+  <script src="/js/main.js"></script>
+  <script src="/js/lib/sortable.js"></script>
+  <script src="/js/lib/bootstrap_select.min.js"></script>
+  <script src="/js/lib/turbolinks.js"></script>
+  <script src="/js/lib/bootstrap_material_design.min.js"></script>
+  <script src="/js/lib/linkify.min.js"></script>
+  <script src="/js/lib/linkifyquery.js"></script>
+  <script src="https://js.pusher.com/6.0/pusher.min.js"></script>
+
+  <link rel="stylesheet" href="/css/lib/sweet_alert.min.css">
+
+
+<script>
+  // Vue.use(VueMaterial)
+  // Vue.use(VueMaterial.MdTable)
+</script>
+
+<script src="https://js.stripe.com/v3"></script>
+<script src="//static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>  
+  
+  <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+
+  <script>
+  function postJSONAjax(url, data, success, failure) {
+  	$.ajax({
+	    type: "POST",
+	    url: url,
+	    // The key needs to match your method's input parameter (case-sensitive).
+	    data: data, //JSON.stringify({ Markers: markers }),
+	    contentType: "application/json; charset=utf-8",
+	    dataType: "json",
+	    success: success,
+	    failure: failure
+    });
+	}
+
+  function setDevicePushToken(deviceToken, successCB, failCB) {
+    $.post('/my_device_push_token', {deviceToken: deviceToken}, successCB, failCB)
+  }
+
+  // window.addEventListener('beforeunload', e => {
+  //   //window.nowcastMediaStream.getTracks().forEach(t => t.stop());
+  //   // Cancel the event
+  //   e.preventDefault(); // If you prevent default behavior in Mozilla Firefox prompt will always be shown
+  //   // Chrome requires returnValue to be set
+  //   e.returnValue = '';
+  // });
+  </script>
+</head><body class="vsc-initialized">  
+            
+    
+    <style>
+.top-nav {
+  margin: 0 20px;
+  
+
+  
+  direction: rtl;
+  
+
+}
+.footer a {
+  margin: 20px;  
+  /*color: #209CEE;*/
+  color: #aab8c2
+}
+
+.top-nav a:not(.logo) {
+  color: black;
+  margin: 20px;
+  font-size: 14px;
+}
+
+.top-nav a:not(.logo):hover {
+  color: grey;
+}
+
+@media screen and (min-width: 1000px) {
+  .search_go_btn {
+    /*display: none;*/
+  }
+
+  .top-nav {
+    margin: 0 20px;
+
+    
+    /*position: absolute;
+    
+    top: 0;
+    left: 0;
+    z-index: 999;*/
+  }
+
+  .top-nav a:not(.logo) {
+    background-color: white;
+    padding: 5px 10px;
+  }
+}
+
+
+.search_input {
+  padding: 13px 40px 13px 20px;
+  border: 1px solid grey;
+  font-size: 17px;
+  width: 380px;
+  margin-bottom: 20px;
+}
+
+@media screen and (max-width: 600px) {
+  .container {
+    margin-top:10px;
+    position: relative;
+    top: 30px;
+  }
+  .search_input {
+    width: 300px;
+  }
+  .top-nav {
+    margin: 10px;
+/*    border-bottom:1px solid whitesmoke;*/
+    position: relative;
+
+  }
+  .top-nav a, .top-nav .search_input_form {
+    display: none;
+    margin: 5px;
+  }
+  /*.fa-gear:hover {
+    color: red;
+  }*/
+  .top-nav a:not(.logo).expanded, .top-nav .search_input_form.expanded {
+    display: block;
+    padding: 15px;
+    background:whitesmoke;
+    padding-right: 30px;
+    margin-left: 50px;
+    color: black;
+    text-align: center;
+  }
+
+  .top-nav a.logo {
+    display: none;
+  }
+  .hamburger {
+    display: block;
+  }
+
+  .create_form {
+    float: left;
+  }
+
+  .search_input {
+    padding-right: 0;
+  }
+}
+
+.search_input_form {
+/*  display: inline-block;*/
+}
+
+.logo_sub_text {
+  position: relative;
+  top: 20px;
+    
+  left: 80px;
+  
+  font-size: 13px;
+  color: grey;
+}
+
+#top_plus_btn {
+  font-size: 17px;
+  border-radius: 4px;
+  padding: 3px 20px;
+  position: relative;
+  top: 0px;
+}
+
+.country_icon_container {
+  zbackground: linear-gradient(#e66465, #9198e5, #47f53b);  
+}
+
+.country_icon {
+  height: 35px;
+  width: 35px;
+  padding: 0;
+  border-radius: 50%;
+}
+</style>
+
+
+
+
+  <div class="top-nav">
+    
+    <!-- <a class='logo' href='/'> <img src='/favicon.ico' style='height:30px'/></a> -->
+           
+
+
+    <div class="logo_container" style="display: inline-block;">
+      <a href="/" class="logo">
+        <b style="color: #00b140">
+          <img src="/img/nowcast_logo_pause.png" style="height:80px">
+        </b> 
+        <small class="logo_sub_text">
+          הופעות בזום
+        </small>
+      </a>    
+    </div>
+    
+    
+    
+          
+      <a class="" href="/login">
+      כניסה
+      </a>    
+      <a class="" href="/signup">
+      הרשמה
+      
+      </a>
+    
+      
+      <!-- <a class='' href='/community'>Community</a> -->
+    
+
+          
+    
+
+    
+        
+
+    
+
+    <style>
+.hamburger-container {
+  display: inline-block;
+  cursor: pointer;
+  position: absolute;
+  left: 5px;
+  top: -7px;
+  z-index: 999;
+}
+
+@media screen and (min-width: 600px) {
+  .hamburger-container {
+    display: none;
+  }
+}
+
+.bar1, .bar2, .bar3 {
+  width: 35px;
+  height: 5px;
+  background-color: grey;
+  margin: 6px 0;
+  transition: 0.4s;
+}
+
+.change .bar1 {
+  -webkit-transform: rotate(-45deg) translate(-9px, 6px);
+  transform: rotate(-45deg) translate(-9px, 6px);
+}
+
+.change .bar2 {opacity: 0;}
+
+.change .bar3 {
+  -webkit-transform: rotate(45deg) translate(-8px, -8px);
+  transform: rotate(45deg) translate(-8px, -8px);
+}
+</style>
+
+
+
+<div class="hamburger-container" onclick="hamburgerToX(this)">
+  <div class="bar1"></div>
+  <div class="bar2"></div>
+  <div class="bar3"></div>
+</div>
+
+<script>
+function hamburgerToX(x) {
+  x.classList.toggle("change");
+  $('.top-nav a').toggleClass('expanded')
+  $('.top-nav .search_input_form').toggleClass('expanded')
+}
+</script>
+  </div>  
+  
+    
+    <div class=" ">
+      
+
+<style>
+.store_buttons {
+
+}
+.store_buttons img {
+  width: 45%;
+  display: inline-block;
+  height: 80px;
+}
+
+.hp_img {
+  width: 80%;
+}
+.hp_search {
+  border: 1px solid #dfe1e5;
+  box-shadow: none;
+  border-radius: 24px;
+  padding: 10px;
+  padding-left: 20px;
+}
+
+.no_hits {
+  text-align: left;
+  margin-top: 20px;
+  font-size: 20px;
+}
+
+.search_hits {
+  text-align: left;
+  font-size: 18px;
+}
+.single_search_hit {
+  margin: 10px;
+}
+
+.trending_searches {
+  font-size: 18px;
+  margin: 20px;
+}
+
+.trending_searches a {
+  color: black; 
+}
+.hp_main_btn{
+  position: relative;
+  bottom: 2px;
+}
+
+.single_logo {
+  display: inline-block;
+/*  margin: 0 10px 20px 10px;*/
+  width: 170px;
+}
+
+.single_logo img {
+  height: 90px;
+  width: auto;    
+}
+
+.integrated_with_container {
+  margin: 20px;
+}
+
+.integrated_with_text {
+  margin-bottom: 10px;
+}
+
+#signup_btn {
+  font-size: 100%;
+}
+.sub_msg {
+  margin: 30px;
+  max-width: 600px;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 45px;
+  margin-bottom: 40px;
+}
+
+.hero {
+  /*display: none;*/
+  /*text-align: left;*/
+  /*background-color:whitesmoke;*/
+  /*width:100%;*/
+  position: relative;
+  flex-wrap: wrap;
+}
+
+/*.hero img {
+  display: none;
+}
+*/
+@media(max-width: 1000px) {
+  .hero {
+    /*min-height: 540px;*/
+  }
+  .hp_left_half, .hp_right_half {
+    width: 100%;
+  }
+}
+
+@media (min-width: 1000px) {
+  /*.hero img {
+    display: block;
+    position: absolute;
+    right: 250px;
+    height: 200px;
+    top: 10px;
+    background-color: white;
+    margin: 20px;
+    padding: 10px;
+    opacity: 0.95;
+    border-radius: 4px;
+  } 
+*/
+  .cut_msg {
+    margin: 0;
+    position: relative;
+    left: 270px;
+  }
+
+  .hp_left_half, .hp_right_half {
+    min-width: 400px;
+  }
+}
+
+.single_cast_type {
+  flex: 1;
+}
+
+#world {
+  width:100%;
+  max-height: 400px;
+}
+.world_text {
+  width: 100%;
+  /*position: absolute;*/
+/*  top: 0;
+  padding-top: 10px;
+  padding-left: 10%;
+  padding-right: 10%;*/
+}
+.white_padding {
+  background-color: white;
+  display: inline-block;
+  padding: 15px;
+}
+
+.hp_bottom {
+  flex-wrap: wrap;
+}
+.hp_bottom a {
+  font-size: 14px;
+  color: black;  
+}
+.hp_bottom a:hover {
+  color: grey;
+}
+.hp_bottom .flex1 {
+  margin:10px;
+}
+</style>
+<style>
+.white_padding {
+  opacity: 0.88;
+  font-weight: bold;
+}
+h1.white_padding {
+ 
+}
+h3.white_padding {  
+  font-size: 25px;
+  margin: 5px 0;
+  color: rgb(51, 51, 51);
+}
+.white_padding.main_title {
+  /*color: #43dc43;*/
+
+  /*color: white;*/
+/*  text-transform: lowercase;*/
+  max-height: 180px;
+  max-width: 710px;
+  margin:0;
+  margin-top: 20px;
+
+}
+@media(max-width: 1000px) {  
+  #hpVideo {
+    /*object-fit: cover;*/
+    /*width: 100%;*/
+  }  
+}
+
+
+#hpVideo_container {
+  border:1px solid red;
+  z-index: 0;
+  /*position: absolute;*/
+  /*bottom: 0;*/
+  right: 0;
+  /*max-height: 300px;
+  max-width: 100%;*/
+}
+.hp_left_half, .hp_right_half {
+  max-width: 100%;
+ 
+}
+.full_text_btn { 
+margin: 20px;
+    max-width: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+    /* max-width: 70%; */
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 20px;
+}
+
+.box { margin: 10px; color: white; font-size: 24px; padding: 0;}
+.box1 { background-color: red; }
+.box2 { background-color: orange; }
+.box3 { background-color: purple; }
+.box4 { background-color: lightblue; }
+
+.hp_term {
+  background-color: whitesmoke;
+  color: green;
+  display: inline-block;
+  font-size: 25px;
+  padding: 5px 10px;
+  margin: 5px;
+  border-radius: 4px;
+}
+.hp_term:hover {
+  background-color:lightgreen;
+  color:white;
+}
+.hp_right_half {
+  background-color: white;
+}
+
+</style>
+
+<style>
+.logos img {
+  height: 100px;
+  margin: 20px auto;
+}
+.ctas_container {
+  margin: 0;
+}
+.top_ctas {
+  margin: 0;
+  max-width: 710px;
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+  align-items: center;
+  flex-wrap: wrap;
+  /*border: 1px solid red;*/
+  justify-content: end;
+}
+
+.above_main_title {
+    display: block;
+    /* font-size: 50%; */
+    color: grey;
+    margin-bottom: 10px;
+    text-transform: initial;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    /*background-color: white;*/
+    padding: 0px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+.hp_casts_container {
+  flex:1; 
+  flex-wrap: wrap; 
+  display: flex; 
+ /* border:1px solid red; */
+/*  justify-content: center;*/
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.subchannels {
+  margin-left: 20px;
+}
+.subchannel {
+  background-color: #ff006a;
+  color: white;
+  padding: 5px 10px;
+  font-size: 50%;
+  border-radius: 2px;
+  white-space: nowrap;
+}
+
+.subchannel:hover {
+  background-color: #d44b8a;
+  color: whitesmoke;
+  position: relative;
+/*  top: -5px;*/
+}
+</style>
+
+<style>
+.single_hp_term {
+  color: white;
+  background-color: #f9647e;
+  background: white;
+  color: #00b140;
+  padding: 10px;
+  font-size: 20px;
+  /*border-radius: 4px;*/
+  margin-top: 10px;
+  display: inline-block;
+}
+
+
+.single_hp_term:hover {
+  /*background-color: #ab1a34;
+  background-color: lightgreen;*/
+
+  cursor: pointer;
+  color: black;  
+}
+
+.single_mini_term {
+  background-color: #099a6b;
+  background-color: #00b140;
+  color: white;
+  padding: 10px;
+  /*border-radius: 3px;*/
+  font-size: 18px;
+  width: 100%;
+  display: inline-block;
+  padding: 10px;
+}
+.single_mini_term:hover {
+  background-color: #ab1a34;
+  background-color: lightgreen;
+  color: black
+}
+
+.single_hp_term_container:hover .single_hp_term {
+  background-color: #00b140;
+  color: white;
+}
+
+.single_hp_term .fa { display: none; }
+.single_hp_term .fal { display: inline-block; }
+.single_hp_term_container:hover .fa { display: inline-block; }
+.single_hp_term_container:hover .fal { display: none; }
+
+.single_hp_term_container { 
+  display: inline-block; 
+  position: relative;
+}  
+@media(max-width: 1000px) {
+  .single_hp_term_container.selected .mini_terms_list {
+    display: block;
+    position: relative;
+  }
+}
+.single_hp_term_container .mini_terms_list { 
+  /*border: 1px solid red;*/
+  position: absolute;
+  left: 0;
+  top: 100%;
+  text-align: left;
+  z-index: 10;
+  display: none;
+}
+.single_hp_term_container:hover .mini_terms_list { display: inline-block; }
+
+.single_hp_term_container.selected .single_hp_term {
+  background-color: lightgreen;
+  color: black;
+}
+
+.sub_main_title { 
+  font-size: 70%;
+  display: inline-block;
+  font-weight: normal;
+  line-height: 1.5;
+  position: relative;
+}
+.above_terms {
+  background-color: white;
+  padding: 5px 10px;
+  margin-bottom: 10px;
+  display: inline-block;
+}
+
+.registration_open {
+  position: absolute;
+  background-color: maroon;
+  color: white;
+  padding: 10px;
+  display: none;
+}
+
+.sub_main_title .focus {
+  font-weight: bold;
+  color: darkred;
+}
+
+.sub_main_title .focus:hover {
+  color: darkblue;
+  cursor: pointer;
+}
+.hp_header {
+  /*text-align: left;*/
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hp_header h1 {
+  font-size: 35px;
+}
+.hp h1, .hp h2, .hp h3, .hp h4 {
+  font-weight: normal;
+}
+.langs_list {
+  margin-top: 20px;
+  font-size: 70%;
+  color: grey;
+}
+</style>
+
+<div class="hp ct">
+
+  <div class="hp_header">
+    
+
+    <h1 style="display: inline-block; margin:20px 20px 0px 10px"><span class="nowcast_color">הופעות בזום </span>בזמן  <span class="zznowcast_color">״הסגר 2״</span></h1>    
+    <h3 style="padding-left:10px"><span class="znowcast_color">בילוי משותף לצוות</span>, <span class="nowcast_color">ותמיכה באמנים ותרבות מקומית.</span></h3>    
+  </div>
+
+  
+
+  
+
+  
+  <h3 style="    text-align: center;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 0px;
+    margin-top: 40px;">
+    
+  </h3>
+  
+
+
+  <div style="display: none">
+    <span class="sub_main_title" style="font-size: 100%; zbackground-color: pink; zmargin-bottom: 20px">
+      <!-- Apply for an online school.
+      <br/>  -->
+
+
+    
+      <style>
+.search_inputs_row {
+  padding: 20px 0 0 0;
+  text-align: left;
+  display: inline-block;
+  /*background-color: #63d634bd;*/
+}
+.search_input_expand_gear {
+  margin-right: 10px; 
+  position: relative; 
+  top:3px; 
+  color: grey;
+  cursor: pointer;
+}
+.search_input_expand_gear:hover {
+  color: goldenrod;
+  
+}
+.search_input_expand_gear.clicked {
+  color: darkred;
+}
+#extra_search_inputs {
+  justify-content: center;
+}
+#extra_search_inputs select {
+  /*margin: 20px;*/
+  max-width: 300px;
+}
+@media screen and (max-width: 601px) {
+  .search_inputs_row .flex1 a {
+    display: block;
+  }
+}
+
+</style>
+<div class="search_inputs_row">
+  <form class="search_input_form" method="get" action="/">
+    <div class="first_row display_flex">
+      
+      <div class="flex1 ct">
+        <!-- <a class='search_input_expand_gear' onclick='$(this).toggleClass("clicked"); $("#extra_search_inputs").toggleClass("noDisplayImportant")'>
+          <i class='fa fa-gear'></i>
+        </a> -->
+        
+          <input class="search_input" name="search" placeholder="Search" value="" zautofocus="">
+          <button class="search_go_btn btn2" type="submit" style="margin-left:20px"><i class="fal fa-search" style="margin-right:5px"></i> Go </button>
+        
+      </div>      
+    
+    
+    </div>
+  </form>
+</div>
+      
+      
+      <!-- <span style='margin:20px; display: inline-block;'><input style='width: 100%' class=input placeholder='spanish class'/></span> 
+      <button class='btn'> search </button> -->      
+      <!-- <span style='margin:10px'>or</span> -->
+      
+      
+            
+      <!-- <a class='focus' href='/signup'>Get started</a> or take <a target=_blank href='https://nowcast.co/@Nowcast/IrwyB/' class='focus'>our class on teaching online.</a> -->
+    </span>
+  </div>
+
+  
+  
+  
+
+    
+    <div class="mw1000 ct">
+      
+
+<style>
+.quick_contact_form {
+/*text-align: left;*/
+margin-bottom: 120px;
+color: black;
+/*background-color: whitesmoke;*/
+padding: 15px 30px;
+}
+.quick_contact_form_title {
+  margin-bottom: 20px;
+}
+.quick_contact_form input {
+  padding: 20px;
+  width: 240px;
+}
+
+.quick_contact_form input, .quick_contact_form .btn2 {
+  font-size: 20px;
+}
+
+.types {
+  margin-bottom: 30px;
+}
+
+.single_type {
+  color: white;
+  padding: 5px 10px;
+  display: inline-block;
+  margin-bottom: 10px;
+  font-size: 21px;
+}
+
+.quick_contact_inner {
+  
+  text-align: center;
+  
+  padding: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 650px;
+  font-size: 25px;
+}
+
+</style>
+
+<form method="post" action="/quick_contact">
+  
+  <div class="types mw1000">    
+    
+      <div class="single_type nowcast_bg_color2">
+        <i class="fal fa-music" style="margin: 0 5px"></i>
+        הופעות
+      </div>
+    
+      <div class="single_type nowcast_bg_color2">
+        <i class="fal fa-users-class" style="margin: 0 5px"></i>
+        נטוורקינג
+      </div>
+    
+      <div class="single_type nowcast_bg_color2">
+        <i class="fal fa-unicorn" style="margin: 0 5px"></i>
+        קואצ׳ינג
+      </div>
+    
+      <div class="single_type nowcast_bg_color2">
+        <i class="fal fa-user-astronaut" style="margin: 0 5px"></i>
+        הרצאות
+      </div>
+    
+      <div class="single_type nowcast_bg_color2">
+        <i class="fal fa-skating" style="margin: 0 5px"></i>
+        כנסים
+      </div>
+    
+  </div>
+
+  <div class="quick_contact_form mw700">
+
+    <div class="quick_contact_inner rtl">
+      <div class="nowcast_color quick_contact_form_title">
+
+        <span> 
+        החל מ-35 ש״ח לכרטיס. דברו איתנו - <div style="margin-top:10px">sella.rafaeli@gmail.com, או בוואטסאפ 052-293-4321</div>  
+        </span>
+        <i class="fal fa-smile-beam" style="padding:0 5px; position: relative; top: 1px"></i>
+      </div>
+    
+      <input name="contact" required="" placeholder="מייל או טלפון שלכם">
+      <button class="btn2"> דברו איתי </button>
+    </div>
+
+    <div>
+      <!-- <input name=org_name  placeholder='Org or team'/> -->
+    </div>
+    
+    <div>
+      
+    </div>
+  </div>
+</form>
+
+    </div>
+      <div class="cast_types_container">
+      
+        <div class="cast_types" style="display: zflex;">
+        <h3 class="hp_casts_container" style="text-align:left; display: block; padding-left: 20px; text-transform: capitalize"> 
+
+          
+                   
+          <div class="ct">אמנים לדוגמא</div>
+          
+          <span class="subchannels">
+          
+          </span>
+        </h3>
+        
+          <div class="hp_casts_container">
+            
+              
+
+<span class="cast_box single_type_box">          
+  <div class="cast_img_and_logistics">
+    <a class="single_type_box_image_link_container" href="https://nowcast.co/@ShiraPelleg/l5MjN/Yoga-for-Beginners">
+      
+        <img src="https://cdn.filestackcontent.com/20gIJ7onTHmnR0CbyW2B" class="single_type_box_image">
+      
+
+      
+    </a>
+  </div> 
+  <div class="cast_box_text_and_img display_flex" style="margin-top: 10px; word-break: break-word;">
+    <div style="flex:1">
+      <a href="/@ShiraPelleg">        
+        <img class="cast_box_user_img" src="https://i.imgur.com/ckhPhfe.jpg">        
+      </a>
+    </div>
+    <div class="cast_box_text">      
+      <div class="cast_box_user">
+        <a href="/@ShiraPelleg"> 
+          ShiraPelleg 
+          
+        </a>
+        
+        <!-- <div class='cast_box_user_desc'>
+          Yoga teacher for the past 10 years with vast experience working with students of all levels. I&#x27;m delighted to share my knowledge and joy of Yoga. With a strong background in #dance, improvisation and circus arts, my relatively dynamic flow is creative and approachable.
+
+The Practice of Yoga, ancient and wise, offers a chance to strengthen body and mind through poses (asanas), breath work (pranayama) and focus (meditation).
+
+
+#Yoga #Health #Balance #pranayama
+#meditation
+
+        </div> -->
+        
+      </div>
+      <a class="cast_box_text_title" href="https://nowcast.co/@ShiraPelleg/l5MjN/Yoga-for-Beginners">
+        <h4 class="cast_box_title">Yoga for Beginners
+        <!-- <div class='cast_box_desc'>Your chance to experience  a yoga class suitable for  beginners to focus on basic poses and alignment with some breath work to bind it all together.
+A safe and friendly class to help you embark on your Yoga journey. See you in class! </div> -->
+          
+        </h4>
+      </a>
+    </div>
+  </div>
+</span>
+            
+              
+
+<span class="cast_box single_type_box">          
+  <div class="cast_img_and_logistics">
+    <a class="single_type_box_image_link_container" href="https://nowcast.co/@ShavitPrince/qaEc6/Cuban-salsa">
+      
+        <img src="https://cdn.filestackcontent.com/ABNuwA2cS5WVjCiQjTsV" class="single_type_box_image">
+      
+
+      
+    </a>
+  </div> 
+  <div class="cast_box_text_and_img display_flex" style="margin-top: 10px; word-break: break-word;">
+    <div style="flex:1">
+      <a href="/@ShavitPrince">        
+        <img class="cast_box_user_img" src="https://i.imgur.com/dU5HNB0.jpg">        
+      </a>
+    </div>
+    <div class="cast_box_text">      
+      <div class="cast_box_user">
+        <a href="/@ShavitPrince"> 
+          ShavitPrince 
+          
+        </a>
+        
+        <!-- <div class='cast_box_user_desc'>
+           I am a #singer, #composer and #entrepreneur from the Middle East, Israel, currently studying Master&#x27;s degree in musicology and composition at Tel-Aviv University, Israel. In May 2018 I graduated with honors from the Bachelors of Fine Arts program at The New School for #Jazz and Contemporary #Music, New York.
+        </div> -->
+        
+      </div>
+      <a class="cast_box_text_title" href="https://nowcast.co/@ShavitPrince/qaEc6/Cuban-salsa">
+        <h4 class="cast_box_title">Cuban salsa
+        <!-- <div class='cast_box_desc'>Cuban Salsa from the first step:
+If dancing always been your dream, now it is the time to take the first step of salsa dancing. 
+We will learn the rhythms and basic steps of Cuban salsa, son and Rumba, and will be able to dance on every salsa song!
+Let&#x27;s Go  :)</div> -->
+          
+        </h4>
+      </a>
+    </div>
+  </div>
+</span>
+            
+              
+
+<span class="cast_box single_type_box">          
+  <div class="cast_img_and_logistics">
+    <a class="single_type_box_image_link_container" href="https://nowcast.co/@Greg/HKH9f/From-Fright-To-Stage">
+      
+        <img src="https://cdn.filestackcontent.com/HoK8uTBQJKMwMOM8dDQy" class="single_type_box_image">
+      
+
+      
+    </a>
+  </div> 
+  <div class="cast_box_text_and_img display_flex" style="margin-top: 10px; word-break: break-word;">
+    <div style="flex:1">
+      <a href="/@Greg">        
+        <img class="cast_box_user_img" src="https://i.imgur.com/1vmuDzE.jpg">        
+      </a>
+    </div>
+    <div class="cast_box_text">      
+      <div class="cast_box_user">
+        <a href="/@Greg"> 
+          Greg 
+          
+        </a>
+        
+        <!-- <div class='cast_box_user_desc'>
+          I’m a group facilitator, Improviser, programmer and entrepreneur.
+ 
+For many years I suffered from social anxiety, I was full of internal judgment and very cruel to myself, after a long journey of years, slowly I learned and am still learning to love and accept myself completely. 
+Now my life purpose is to make people laugh, smile and help them break free from their inner judge. 
+        </div> -->
+        
+      </div>
+      <a class="cast_box_text_title" href="https://nowcast.co/@Greg/HKH9f/From-Fright-To-Stage">
+        <h4 class="cast_box_title">From Fright To Stage
+        <!-- <div class='cast_box_desc'>
+An interactive workshop inspired by my journey, from social anxiety to performing in front of an audience and group facilitation.
+
+We will laugh and smile, talk about avoidance, self-acceptance and self-love, practice tools from the world of Improvisation Theater and discuss about our inner judge.
+
+Participants are an active part of the workshop. We will forge a set of tools to help us deal with our fears and help us break our barriers.</div> -->
+          
+        </h4>
+      </a>
+    </div>
+  </div>
+</span>
+            
+              
+
+<span class="cast_box single_type_box">          
+  <div class="cast_img_and_logistics">
+    <a class="single_type_box_image_link_container" href="https://nowcast.co/@momentum/Xwa-9/Online-applied-improv-workshops">
+      
+        <img src="https://cdn.filestackcontent.com/JlqckddHTxKhKuDpUfdx" class="single_type_box_image">
+      
+
+      
+    </a>
+  </div> 
+  <div class="cast_box_text_and_img display_flex" style="margin-top: 10px; word-break: break-word;">
+    <div style="flex:1">
+      <a href="/@momentum">        
+        <img class="cast_box_user_img" src="https://i.imgur.com/x5wIs0P.png">        
+      </a>
+    </div>
+    <div class="cast_box_text">      
+      <div class="cast_box_user">
+        <a href="/@momentum"> 
+          momentum 
+          
+        </a>
+        
+        <!-- <div class='cast_box_user_desc'>
+          Momentum Improv is a collaboration of three of Israel’s most experienced, avant-garde and internationally-acclaimed improvisors: Hila Di Castro, Itamar Karbian and Amir Atsmon. In Israel and abroad, we teach unique workshops, offering new and groundbreaking approaches to improv, and perform in various venues and festivals with our original format “No Edit”. For us, improv is a way of life, a unique and breathtaking art-form and a toolkit for improving organizations, communities and businesses. Each of us hail from an exceptional background that informs our work on stage and in the workshop space: theater and film acting, role playing and creative arts therapy. 
+        </div> -->
+        
+      </div>
+      <a class="cast_box_text_title" href="https://nowcast.co/@momentum/Xwa-9/Online-applied-improv-workshops">
+        <h4 class="cast_box_title">Online applied-improv workshops
+        <!-- <div class='cast_box_desc'> Online applied-improv workshops that focus on life-skills and self-improvement for the general population.</div> -->
+          
+        </h4>
+      </a>
+    </div>
+  </div>
+</span>
+            
+              
+
+<span class="cast_box single_type_box">          
+  <div class="cast_img_and_logistics">
+    <a class="single_type_box_image_link_container" href="https://nowcast.co/@tzlilberlin/LsT5A/Tzlil-Berlin's-Pilates">
+      
+        <img src="https://i.imgur.com/33OIU7k.jpg" class="single_type_box_image">
+      
+
+      
+    </a>
+  </div> 
+  <div class="cast_box_text_and_img display_flex" style="margin-top: 10px; word-break: break-word;">
+    <div style="flex:1">
+      <a href="/@tzlilberlin">        
+        <img class="cast_box_user_img" src="https://i.imgur.com/1Nedl9k.jpg">        
+      </a>
+    </div>
+    <div class="cast_box_text">      
+      <div class="cast_box_user">
+        <a href="/@tzlilberlin"> 
+          tzlilberlin 
+          
+        </a>
+        
+        <!-- <div class='cast_box_user_desc'>
+          https:&#x2F;&#x2F;youtu.be&#x2F;Y_b_bdTeAt0
+        </div> -->
+        
+      </div>
+      <a class="cast_box_text_title" href="https://nowcast.co/@tzlilberlin/LsT5A/Tzlil-Berlin's-Pilates">
+        <h4 class="cast_box_title">Tzlil Berlin's Pilates
+        <!-- <div class='cast_box_desc'>Straight from Tel Aviv, Israel - A Pilates Class For Mind and Body</div> -->
+          
+        </h4>
+      </a>
+    </div>
+  </div>
+</span>
+            
+              
+
+<span class="cast_box single_type_box">          
+  <div class="cast_img_and_logistics">
+    <a class="single_type_box_image_link_container" href="https://nowcast.co/@DennisJor/m6VYh/Dennis-Jor's-Hatha-Yoga">
+      
+        <img src="https://i.imgur.com/59B2kfd.jpg" class="single_type_box_image">
+      
+
+      
+    </a>
+  </div> 
+  <div class="cast_box_text_and_img display_flex" style="margin-top: 10px; word-break: break-word;">
+    <div style="flex:1">
+      <a href="/@DennisJor">        
+        <img class="cast_box_user_img" src="https://i.imgur.com/59B2kfd.jpg">        
+      </a>
+    </div>
+    <div class="cast_box_text">      
+      <div class="cast_box_user">
+        <a href="/@DennisJor"> 
+          DennisJor 
+          
+        </a>
+        
+        <!-- <div class='cast_box_user_desc'>
+          I teach traditional #hatha Yoga, #meditation, and #pranayama(breathing exercises)
+        </div> -->
+        
+      </div>
+      <a class="cast_box_text_title" href="https://nowcast.co/@DennisJor/m6VYh/Dennis-Jor's-Hatha-Yoga">
+        <h4 class="cast_box_title">Dennis Jor's Hatha Yoga
+        <!-- <div class='cast_box_desc'></div> -->
+          
+        </h4>
+      </a>
+    </div>
+  </div>
+</span>
+            
+              
+
+<span class="cast_box single_type_box">          
+  <div class="cast_img_and_logistics">
+    <a class="single_type_box_image_link_container" href="https://nowcast.co/@MichalGutman/VNVnJ/Afrobeats-For-Beginners">
+      
+        <img src="https://cdn.filestackcontent.com/VM7R0HSUabYhIvXWkBQS" class="single_type_box_image">
+      
+
+      
+    </a>
+  </div> 
+  <div class="cast_box_text_and_img display_flex" style="margin-top: 10px; word-break: break-word;">
+    <div style="flex:1">
+      <a href="/@MichalGutman">        
+        <img class="cast_box_user_img" src="https://i.imgur.com/pdaT5yt.jpg">        
+      </a>
+    </div>
+    <div class="cast_box_text">      
+      <div class="cast_box_user">
+        <a href="/@MichalGutman"> 
+          MichalGutman 
+          
+        </a>
+        
+        <!-- <div class='cast_box_user_desc'>
+          Michal Gutman - 
+Hi, I&#x27;m Michal, a #dancer, #singer, #actress, #writer, qualified attorney and a freedom enthusiastic.
+Instructor for #Afrobeats #dance, Reggeaton dance and #body movement.
+These types of #art have always been part of my journey towards #freedom, embracing life and myself.
+Feeling comfortable in your own #body, moving to the sounds of #music, is one the most amazing gifts we&#x27;ve been given.
+        </div> -->
+        
+      </div>
+      <a class="cast_box_text_title" href="https://nowcast.co/@MichalGutman/VNVnJ/Afrobeats-For-Beginners">
+        <h4 class="cast_box_title">Afrobeats For Beginners
+        <!-- <div class='cast_box_desc'>Afrobeats for beginners
+Afrobeats is spreading all around the world!
+This dance is first and foremost about feeling the vibe, feeling it to your soul.
+We will learn the moves slowly, to make sure you understand the technique,
+then practice with short combinations.
+It&#x27;s a workout, as well as super fun.
+
+</div> -->
+          
+        </h4>
+      </a>
+    </div>
+  </div>
+</span>
+            
+              
+
+<span class="cast_box single_type_box">          
+  <div class="cast_img_and_logistics">
+    <a class="single_type_box_image_link_container" href="https://nowcast.co/@kiril/b3Owf/Flexibility-and-Mobility">
+      
+        <img src="https://cdn.filestackcontent.com/Ku4OFMYQNUlsZfCIhHgy" class="single_type_box_image">
+      
+
+      
+    </a>
+  </div> 
+  <div class="cast_box_text_and_img display_flex" style="margin-top: 10px; word-break: break-word;">
+    <div style="flex:1">
+      <a href="/@kiril">        
+        <img class="cast_box_user_img" src="https://i.imgur.com/9cuBAOL.jpg">        
+      </a>
+    </div>
+    <div class="cast_box_text">      
+      <div class="cast_box_user">
+        <a href="/@kiril"> 
+          kiril 
+          
+        </a>
+        
+        <!-- <div class='cast_box_user_desc'>
+          #GMB trainer
+
+As an obese child I know today that people that moving are more happy.
+
+#Flexibility and #Mobility
+
+
+        </div> -->
+        
+      </div>
+      <a class="cast_box_text_title" href="https://nowcast.co/@kiril/b3Owf/Flexibility-and-Mobility">
+        <h4 class="cast_box_title">Flexibility and Mobility
+        <!-- <div class='cast_box_desc'>Flexibility and Mobility
+
+In our daily lives  we are mostly found our self  sitting or lying mood. That fact  make Our body stiff,  and the lower back is start to hurt.
+If you know what I&#x27;m talking about, this class is exactly for you!
+
+ We  going  to open our range of motion, loos our body and make our body heftily 
+The class for all levels.</div> -->
+          
+        </h4>
+      </a>
+    </div>
+  </div>
+</span>
+            
+          </div>
+        
+           <!-- end if  -->
+        </div>
+       <!-- end each -->
+
+      
+    
+    
+
+     
+
+    <style>
+.hp_bottom {
+  margin-top:30px; 
+  padding:10px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: whitesmoke;
+}
+
+</style>
+<div style="height:100px"></div>
+<div class="ct display_flex hp_bottom">
+    
+    <!-- <span class="flex1"><a href='/community?sec=help_center'>about</a></span> -->
+    <!-- <span class="flex1"><a href='/how_it_works'>how it works</a></span> -->
+    <!-- <span class="flex1"><a href='/start'>start</a></span>     -->
+    <!-- <span class="flex1"><a href='/faq'>FAQ</a></span> -->
+    <!-- <span class="flex1"><a href='/what_is_a_nowcast'>what's a nowcast?</a></span> -->
+    
+<!--     <span class="flex1"><a href='/support'>support</a></span> -->
+    <!-- <span class="flex1"><a href='/@pricing'>pricing</a></span> -->
+    <span class="flex1">
+      <a href="/terms_of_service">תנאי שימוש</a>
+    </span>
+    <span class="flex1">
+      <a href="/privacy_policy">
+      מדיניות הפרטיות
+      </a>
+    </span>
+    <!-- <span class="flex1"><a href='/blog'>blog</a></span> -->
+    <!-- <span class="flex1"><a href='/team'>team</a></span>     -->
+    <!-- <span class="flex1"><a href='/careers'>careers</a></span>     -->
+    <!-- <span class="flex1">
+      <a href='https://www.facebook.com/Nowcastco-101882414883776/'><i class='fa fa-facebook'></i></a>
+      <span style='display: inline-block; margin-left: 10px;'></span>
+      <a href='https://www.instagram.com/nowcast.co/'><i class='fa fa-instagram'></i></a>
+    </span> -->
+    
+    <span class="flex1"><a href="mailto:contact@nowcast.co">contact@nowcast.co</a></span>
+</div>
+
+
+  <div style="display: none">
+    How to sell on Nowcast 
+    
+    Fitness
+      - yoga 
+      - pilates 
+      - dance 
+      - home workouts
+      - for men
+      - for women 
+      - daily groups 
+      - private 
+
+    Tech
+      - javascript 
+      - css 
+      - fullstack 
+      - lectures
+      - sheStartsToCode
+      - blackBoysCode 
+      - mentors 
+      - guest speakers 
+      - consultants 
+      - hangouts 
+      - experts 
+
+    Languages
+      - English
+      - Spanish
+      - Chinese
+      - Russian
+      - Hebrew 
+      - French
+      - Portuguese
+      - Accent practice 
+
+    Cooking
+      - lessons
+      - for dummies
+      - on a budget 
+      - experts 
+      - Asian cuisine 
+    
+    Spirituality
+      - Mindfulness
+      - Christianity
+      - Judaism
+      - Islam 
+      - Meditation
+      - Buddhism 
+
+    Fashion
+      - interior design
+
+    Emotional Support
+      - therapists
+      - psychologists
+      - ...
+
+    Art 
+      - Improv sessions 
+      - Acting Classes
+      - Painting classes
+      - Drawing classes
+
+    Support Groups
+      - Support Groups
+      - Men Support Group
+      - Women Support Group
+      - Mothers Support Group
+      - Fathers Support Group
+      - Entrepreneurs Support Group
+      - Women-in-tech Support Group
+
+    Watch Parties 
+      - NBA 
+      - NFL
+      - Soccer/Football
+
+    Networking Events
+      - WomenInTech
+      - Ruby Developers
+      - Israelis in the US
+
+    Medical Advice 
+      - 
+
+    For Entrepreneurs 
+      - Fashion tips 
+      - asdf
+
+
+
+
+      Stock market investing for beginners
+    Financial advice for beginners
+
+    Yoga
+    Pilates
+    Fitness
+    Basic Stretching
+
+    Chinese
+    English
+      - English for Russian speakers 
+    Russian
+    Spanish
+    Hebrew
+    
+    Introduction to Web Development
+    Programming
+    Web Programming
+    CSS
+    JavaScript
+    Full-Stack Development
+    Premium Tech Consulting
+
+    Cooking
+    
+    Fashion Advice
+    Interior Design Advice
+    Dating Advice
+    Relationship Advice
+    Pets Advice
+
+    Startup Advice
+    
+    Graphic Design consulting
+    Brand awareness consulting
+
+    Online Games
+    
+
+    Law Consulting
+    Immigration Consulting
+    Tenants Rights Consulting
+
+    COVID19 Medical Advice 
+    Pet-care advice 
+    Emotional Support
+    Alcoholics Anonymous 
+    420'ers United 
+
+    
+
+    Christianity
+    Judaism
+    Islam 
+    Buddhism
+
+    Alan Watts
+
+    Sports News coverage 
+    Online poker groups
+    Online game night 
+    Online movie night 
+
+    Networking events 
+      - Israelis in the US 
+      - Israeli/American Entrepreneurs 
+
+    Music show
+    Drumming class
+    Dance class 
+
+    Public speaking (Toastmasters)
+
+    History lectures
+    Exotic Places and People 
+
+    Kids Entertainment
+  </div>  
+  </div>   
+</div>
+
+<script>
+$(document).ready(function() {
+  convertTimesToLocal();
+}); 
+</script>
+<!-- <script src='/js/lib/confetti.js'></script> -->
+ 
+    </div>
+
+    <div style="zpadding-bottom: 100px"></div>
+    
+               
+  <link rel="stylesheet" href="/css/fonts/RobotoFonts.css">
+  <link rel="stylesheet" href="/css/fonts/MaterialIcons.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2Cregular%2Citalic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic%7COpen%20Sans%3A400%2C700&amp;display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+
+<style>
+
+body {
+  direction: rtl;
+}
+</style>
+
+  <script>
+    
+
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-100769576-1', 'auto');
+      ga('send', 'pageview');
+  </script>
+
+<script>
+function updateOpenChats() {
+  $.get('/chat/open').then(res => {
+    if (res.ouids.length) {
+      res.ouids.forEach(ouid => {
+        console.log('open chat with ouid '+ouid);  
+        $(`.user_id_${ouid}`).addClass('unread');
+      });
+      $('.header_envelope_num_unreads').text(`(${res.ouids.length})`).removeClass('noDisplay');  
+    }
+    
+    
+  })
+}
+
+
+function layoutOnLoad() {
+  //$('[data-toggle="tooltip"]').tooltip(); 
+  updateOpenChats();
+  console.log('done layoutOnLoad');
+}
+
+$(document).ready(layoutOnLoad);
+</script>
+
+<div class="cookies_banner" id="cookies_banner" hidden="">
+  <div>
+  To offer you a better experience, this site uses profile cookies, even from third parties. <br>
+  By continuing to use this website you consent to the use of cookies. <br>
+  For more information or to select your preferences consult our Privacy Policy.
+  </div>
+  <div class="accept_cookies_btn">
+    <small>      
+      <a id="accept_cookies_btn" class="btn btn-primary btn-raised" onclick="
+          $.ajax({
+            url: &quot;/accept_cookies&quot;,
+            success: function() {$(&quot;#cookies_banner&quot;)[0].hidden = true}})">
+        Accept Cookies
+      <div class="ripple-container"><div class="ripple ripple-on ripple-out" style="left: 59.2188px; top: 20px; background-color: rgba(255, 255, 255, 0.84); transform: scale(21.75);"></div></div></a>
+    </small>
+  </div>
+</div> 
+
+<script>
+window.filestackAPIkey = 'AHuQo4ciRwufvk1mRbnaNz';
+window.filestackClient = filestack.init(filestackAPIkey);
+
+
+function filestackUpload(cb) {
+  const foo = {
+    bar: 'true',
+    yes: 'foo'
+  };
+  const options = {
+    onFileUploadFinished: cb,
+    fromSources: ['local_file_system','webcam','video'],
+    onFileSelected: file => {
+        // If you throw any error in this function it will reject the file selection.
+        // The error message will be displayed to the user as an alert.
+        if (file.size > 1000 * 1000 * 150) {
+          throw new Error('File too big, select something smaller than 150MB');
+        }
+      }
+  };
+
+  window.filestackClient.picker(options).open();
+}
+</script>
+
+
+
+<iframe frameborder="0" allowtransparency="true" scrolling="no" name="__privateStripeMetricsController8730" allowpaymentrequest="true" src="https://js.stripe.com/v3/m-outer-6e6ed81584679d263bf5a2b0f15af9e1.html#url=https%3A%2F%2Fnowcast.co%2F&amp;title=%D7%94%D7%95%D7%A4%D7%A2%D7%95%D7%AA%20%D7%91%D7%96%D7%95%D7%9D&amp;referrer=&amp;muid=NA&amp;sid=NA&amp;version=6&amp;preview=false" aria-hidden="true" tabindex="-1" style="border: none !important; margin: 0px !important; padding: 0px !important; width: 1px !important; min-width: 100% !important; overflow: hidden !important; display: block !important; visibility: hidden !important; position: fixed !important; height: 1px !important; pointer-events: none !important; user-select: none !important;"></iframe></body></html>
